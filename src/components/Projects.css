@@ -48,16 +48,16 @@
   background: 
     url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E"),
     linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 100%),
-    rgba(250, 227, 185, 0.28);
+    var(--glass-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--glass-border);
   border-radius: 40px;
   padding: 48px;
   
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.06),
-    inset 0 1px 1px rgba(255, 255, 255, 0.35);
+    inset 0 1px 1px rgba(255, 255, 255, 0.45);
   
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
               box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
@@ -218,11 +218,11 @@
   gap: 8px;
   align-self: flex-start;
   padding: 0.75rem 1.75rem;
-  background: rgba(255, 255, 255, 0.18);
+  background: var(--btn-glass-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   color: var(--accent);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid var(--btn-glass-border);
   border-radius: var(--radius-pill);
   font-size: 0.9rem;
   font-weight: 600;

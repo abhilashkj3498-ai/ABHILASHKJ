@@ -35,10 +35,12 @@
   text-transform: uppercase;
   margin-bottom: 1.5rem;
   padding: 6px 18px;
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-pill);
-  background: var(--card);
-  box-shadow: var(--card-shadow);
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: var(--glass-shadow);
 }
 
 .greeting-dot {
@@ -129,23 +131,26 @@
   display: inline-flex;
   align-items: center;
   padding: 0.85rem 2rem;
-  background: var(--card);
+  background: var(--btn-glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: var(--text-secondary);
   font-weight: 500;
   font-size: 0.95rem;
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--btn-glass-border);
   border-radius: var(--radius-pill);
   cursor: pointer;
   font-family: var(--font-main);
-  box-shadow: var(--card-shadow);
-  transition: color 0.25s ease, border-color 0.25s, background 0.25s, transform 0.25s;
+  box-shadow: 0 2px 8px rgba(120, 80, 30, 0.04);
+  transition: color 0.25s ease, border-color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s;
 }
 
 .btn-ghost-hero:hover {
   color: var(--accent);
-  border-color: var(--accent);
-  background: var(--accent-muted);
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.3);
   transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(120, 80, 30, 0.08);
 }
 
 /* ── Scroll hint ────────────────────────────────────────────────────────── */
