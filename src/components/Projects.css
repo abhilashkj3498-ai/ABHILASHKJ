@@ -1,31 +1,74 @@
 /* ── Projects Section ───────────────────────────────────────────────────── */
 .projects-section {
-  padding: 100px 10%;
-  max-width: 1200px;
+  padding: var(--section-pad);
+  max-width: var(--max-width);
   margin: 0 auto;
+  position: relative;
 }
 
-/* ── Showcase container — vertical stack of alternating rows ────────────── */
+/* Ambient blur orbs behind projects */
+.projects-section::before,
+.projects-section::after {
+  content: "";
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  filter: blur(140px);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.15;
+}
+.projects-section::before {
+  top: 15%;
+  left: -200px;
+  background: var(--accent-light);
+}
+.projects-section::after {
+  bottom: 20%;
+  right: -200px;
+  background: var(--accent);
+}
+
 .projects-showcase {
   display: flex;
   flex-direction: column;
-  gap: 80px;
-  margin-top: 4rem;
+  gap: 64px;
+  margin-top: 3rem;
 }
 
-/* ── Individual Project Row ─────────────────────────────────────────────── */
+/* ── Individual Project Row / Shared Glass Container ─────────────────────── */
 .project-item {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 56px;
   align-items: center;
-  position: relative;
+  
+  /* Glassmorphism Styling */
+  background: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E"),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 100%),
+    rgba(250, 227, 185, 0.28);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 40px;
+  padding: 48px;
+  
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+              box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+              border-color 0.4s ease;
+              
   opacity: 0;
   transform: translateY(40px);
   animation: project-appear 0.7s ease forwards;
+  position: relative;
 }
 
-/* Stagger each row's entrance */
 .project-item:nth-child(1) { animation-delay: 0.1s; }
 .project-item:nth-child(2) { animation-delay: 0.25s; }
 .project-item:nth-child(3) { animation-delay: 0.4s; }
@@ -34,7 +77,14 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Reversed row — CSS grid order trick keeps markup clean */
+.project-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 
+    0 16px 48px rgba(120, 80, 30, 0.1),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
 .project-item--reversed .project-visual  { order: 2; }
 .project-item--reversed .project-content { order: 1; }
 
@@ -44,15 +94,11 @@
   overflow: hidden;
   aspect-ratio: 4 / 3;
   position: relative;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  cursor: default;
+  transition: transform 0.4s ease;
 }
 
-.project-visual:hover {
-  transform: scale(1.02) translateY(-6px);
-  box-shadow:
-    0 24px 60px rgba(var(--project-accent-rgb), 0.18),
-    0 0 0 1px rgba(var(--project-accent-rgb), 0.15);
+.project-item:hover .project-visual {
+  transform: scale(1.015);
 }
 
 .project-visual-inner {
@@ -61,13 +107,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 24px;
   position: relative;
   overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Animated glow blob */
+/* Warm animated glow */
 .project-visual-glow {
   position: absolute;
   width: 80%;
@@ -75,6 +121,7 @@
   border-radius: 50%;
   animation: glow-drift 6s ease-in-out infinite alternate;
   pointer-events: none;
+  opacity: 0.4;
 }
 
 @keyframes glow-drift {
@@ -82,12 +129,11 @@
   to   { transform: translate(10%, 10%) scale(1.1); }
 }
 
-/* Big icon */
 .project-visual-icon {
   font-size: 5rem;
   z-index: 2;
-  filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
   animation: icon-float 4s ease-in-out infinite;
+  filter: drop-shadow(0 8px 16px rgba(120,80,30,0.12));
 }
 
 @keyframes icon-float {
@@ -95,26 +141,26 @@
   50%      { transform: translateY(-10px); }
 }
 
-/* Subtle grid overlay */
 .project-visual-grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
   background-size: 32px 32px;
   pointer-events: none;
+  opacity: 0.6;
 }
 
-/* Number badge — top corner */
 .project-number {
   position: absolute;
-  top: 16px;
-  right: 18px;
-  font-size: 0.7rem;
+  top: 20px;
+  right: 22px;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 2px;
-  color: rgba(255,255,255,0.25);
+  color: var(--text-secondary);
+  opacity: 0.65;
   z-index: 3;
 }
 
@@ -122,10 +168,16 @@
 .project-content {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.2rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  transition: none;
 }
 
-/* Top tech tags */
+/* Tech tags */
 .project-tags-top {
   display: flex;
   flex-wrap: wrap;
@@ -138,16 +190,17 @@
   letter-spacing: 0.5px;
   padding: 4px 12px;
   border-radius: 20px;
-  color: var(--tag-accent);
-  background: color-mix(in srgb, var(--tag-accent) 8%, transparent);
-  border: 1px solid color-mix(in srgb, var(--tag-accent) 20%, transparent);
+  color: var(--accent);
+  background: rgba(201, 121, 62, 0.08);
+  border: 1px solid rgba(201, 121, 62, 0.2);
+  backdrop-filter: blur(4px);
 }
 
 /* Title */
 .project-title {
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
-  font-weight: 700;
-  color: #fff;
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 800;
+  color: var(--text-primary);
   line-height: 1.25;
 }
 
@@ -155,77 +208,81 @@
 .project-desc {
   font-size: 1rem;
   color: var(--text-secondary);
-  line-height: 1.8;
+  line-height: 1.75;
 }
 
-/* CTA link-button */
+/* CTA - Glass Button Style */
 .project-cta {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   align-self: flex-start;
-  padding: 0.7rem 1.6rem;
-  background: transparent;
-  color: var(--project-accent);
-  border: 1px solid color-mix(in srgb, var(--project-accent) 30%, transparent);
-  border-radius: 40px;
+  padding: 0.75rem 1.75rem;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--accent);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-pill);
   font-size: 0.9rem;
   font-weight: 600;
   font-family: var(--font-main);
   cursor: pointer;
-  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.25s;
   text-decoration: none;
+  box-shadow: 0 2px 8px rgba(120, 80, 30, 0.04);
 }
 
 .project-cta svg {
-  transition: transform 0.25s ease;
+  transition: transform 0.25s;
 }
 
 .project-cta:hover {
-  background: color-mix(in srgb, var(--project-accent) 10%, transparent);
-  box-shadow: 0 0 20px color-mix(in srgb, var(--project-accent) 25%, transparent);
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 4px 16px rgba(201, 121, 62, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
 }
 
-.project-cta:hover svg { transform: translateX(4px); }
-
-/* Subtle divider between items */
-.project-item + .project-item::before {
-  content: '';
-  position: absolute;
-  top: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  height: 80px;
-  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.07), transparent);
+.project-cta:hover svg {
+  transform: translateX(4px);
 }
 
 /* ── Responsive ─────────────────────────────────────────────────────────── */
-@media (max-width: 900px) {
+@media (max-width: 992px) {
   .projects-section {
-    padding: 80px 6%;
+    padding: 5rem 6%;
   }
-
   .projects-showcase {
-    gap: 60px;
+    gap: 40px;
   }
-
   .project-item {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 36px;
+    padding: 36px;
+    border-radius: 32px;
   }
-
-  /* On mobile, always show visual on top, content below */
   .project-item--reversed .project-visual  { order: 0; }
   .project-item--reversed .project-content { order: 1; }
-
+  
   .project-visual {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16 / 10;
   }
 }
 
 @media (max-width: 480px) {
-  .project-visual-icon { font-size: 3.5rem; }
-  .project-cta { width: 100%; justify-content: center; }
+  .project-item {
+    padding: 24px;
+    gap: 24px;
+    border-radius: 28px;
+  }
+  .project-visual-icon {
+    font-size: 3.5rem;
+  }
+  .project-cta {
+    width: 100%;
+    justify-content: center;
+  }
 }

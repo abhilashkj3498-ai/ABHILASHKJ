@@ -1,18 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
+/* ── Design Tokens ──────────────────────────────────────────────────────── */
 :root {
-  --bg-color:        #0A0A0A;
-  --text-primary:    #FFFFFF;
-  --text-secondary:  #A0A0A0;
-  --accent-cyan:     #00F0FF;
-  --accent-purple:   #b026ff;
-  --glass-bg:        rgba(255, 255, 255, 0.03);
-  --glass-border:    rgba(255, 255, 255, 0.08);
-  --glass-shadow:    0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  /* Warm palette */
+  --bg:              #fdf4dc;
+  --card:            #fae3b9;
+  --card-hover:      #f7d9a8;
+  --accent:          #c9793e;        /* warm terracotta */
+  --accent-light:    #e8a96a;        /* soft orange */
+  --accent-muted:    rgba(201,121,62,0.12);
+
+  /* Typography */
+  --text-primary:    #1e1208;        /* rich dark brown */
+  --text-secondary:  #6b5744;        /* warm medium brown */
+  --text-muted:      #b09880;        /* light warm grey-brown */
+
+  /* Surfaces */
+  --card-shadow:     0 4px 24px rgba(120, 80, 30, 0.08), 0 1px 4px rgba(120,80,30,0.04);
+  --card-shadow-hover: 0 12px 40px rgba(120, 80, 30, 0.14), 0 2px 8px rgba(120,80,30,0.06);
+
+  /* Borders */
+  --border:          rgba(180, 130, 80, 0.18);
+  --border-strong:   rgba(180, 130, 80, 0.32);
+
+  /* Layout */
+  --radius-card:     32px;
+  --radius-sm:       16px;
+  --radius-pill:     50px;
+  --max-width:       1160px;
+  --section-pad:     7rem 8%;
+
+  /* Legacy aliases kept so component CSS still compiles */
+  --bg-color:        #fdf4dc;
+  --text-primary-old: #1e1208;
+  --accent-cyan:     #c9793e;
+  --accent-purple:   #9b6b3a;
+  --glass-bg:        rgba(250, 227, 185, 0.7);
+  --glass-border:    rgba(180, 130, 80, 0.18);
+  --glass-shadow:    0 4px 24px rgba(120, 80, 30, 0.08);
   --font-main:       'Inter', sans-serif;
   --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* ── Reset ──────────────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -26,7 +56,7 @@ html {
 
 body {
   font-family: var(--font-main);
-  background-color: var(--bg-color);
+  background: var(--bg);
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
@@ -45,41 +75,58 @@ ul { list-style: none; }
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
+  color: var(--text-primary);
 }
 
-/* ── Global Utility: Glassmorphism card ─────────────────────────────────── */
+/* ── Card utility ───────────────────────────────────────────────────────── */
 .glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--card-shadow);
+  border-radius: var(--radius-card);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-/* Navbar variant — darker so content doesn't bleed through */
+.glass:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-3px);
+}
+
+/* Navbar variant — stays sticky, no hover lift */
 .navbar.glass {
-  background: rgba(10, 10, 10, 0.7);
+  transform: none;
+  background: rgba(253, 244, 220, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 20px rgba(120, 80, 30, 0.08);
+  border-radius: var(--radius-pill);
 }
 
-/* ── Global section title style ─────────────────────────────────────────── */
+.navbar.glass:hover { transform: none; }
+
+/* ── Section title ──────────────────────────────────────────────────────── */
 .section-title {
   display: flex;
   align-items: center;
-  margin-bottom: 2rem;
-  gap: 1rem;
+  margin-bottom: 3rem;
+  gap: 1.25rem;
 }
 
 .section-title h2 {
   font-size: 2rem;
-  color: #fff;
+  color: var(--text-primary);
   white-space: nowrap;
+  font-weight: 800;
 }
 
 .section-title .line {
   height: 1px;
-  background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+  background: linear-gradient(to right, var(--border-strong), transparent);
   flex: 1;
 }
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--card-hover); border-radius: 6px; }

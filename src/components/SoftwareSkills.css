@@ -1,74 +1,80 @@
-
+/* ── Software Skills Section ────────────────────────────────────────────── */
 .software-skills-section {
-  padding: 60px 0;
+  padding: var(--section-pad);
+  max-width: var(--max-width);
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+}
+
+.software-skills-header {
+  font-size: 2rem !important;
+  color: var(--text-primary) !important;
+  margin-bottom: 2.5rem !important;
+  font-weight: 800 !important;
+  text-align: center !important;
+  font-family: var(--font-main) !important;
 }
 
 .skills-container {
-  max-width: 800px;
+  max-width: 760px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 60px;
-  border-radius: 20px;
+  padding: 3.5rem;
+  border-radius: var(--radius-card);
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 0.3s, transform 0.3s;
 }
+
+.skills-container:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-4px);
+}
+
 .icons-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  gap: 24px;
   max-width: 600px;
-}
-
-.icons-row-2 {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  width: 100%;
-  margin-top: 10px;
 }
 
 .adobe-icon {
   width: 80px;
   height: 80px;
-  border-radius: 16px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-main);
   font-weight: 700;
   font-size: 2.2rem;
   letter-spacing: -1px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  cursor: default;
 }
 
-.icon-image {
-  width: 80px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.adobe-icon:hover {
+  transform: translateY(-6px) scale(1.06);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
 }
 
-.icon-image img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  border-radius: 16px;
-}
-
-/* Base Colors Approximations */
+/* Keep original Adobe brand colors — they stand out nicely on warm background */
 .pr { background: #26134D; color: #7F6DEB; }
-.dr { background: #0E1621; color: #FF9E1B; border: 1px solid rgba(255, 158, 27, 0.25); }
+.dr { background: #0E1621; color: #FF9E1B; }
 .ae { background: #1C1149; color: #8F76DE; }
 .lr { background: #0E2941; color: #43A5D4; }
 .ps { background: #001D2D; color: #2CACDF; }
-.kl { background: #1D0E1F; color: #F43F5E; border: 1px solid rgba(244, 63, 94, 0.25); }
+.kl { background: #1D0E1F; color: #F43F5E; }
 
 @media (max-width: 768px) {
-  .skills-container { padding: 30px 20px; }
-  .adobe-icon, .icon-image, .icon-image img { width: 60px; height: 60px; font-size: 1.8rem; border-radius: 12px; }
+  .software-skills-section { padding: 5rem 6%; }
+  .skills-container { padding: 2.5rem 1.5rem; }
+  .adobe-icon { width: 62px; height: 62px; font-size: 1.8rem; border-radius: 12px; }
 }

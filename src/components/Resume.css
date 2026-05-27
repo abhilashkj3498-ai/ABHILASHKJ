@@ -1,20 +1,21 @@
+/* ── Resume Section ─────────────────────────────────────────────────────── */
 .resume-section {
-  padding: 100px 10%;
-  max-width: 1200px;
+  padding: var(--section-pad);
+  max-width: var(--max-width);
   margin: 0 auto;
 }
 
 .resume-grid {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  gap: 50px;
+  gap: 40px;
   margin-top: 3rem;
 }
 
 .resume-col {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 28px;
 }
 
 .space-between-col {
@@ -22,11 +23,11 @@
 }
 
 .sub-header {
-  font-size: 1.5rem;
-  color: #fff;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-  border-left: 3px solid var(--accent-cyan);
+  font-size: 1.35rem;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+  border-left: 3px solid var(--accent);
   padding-left: 12px;
 }
 
@@ -34,65 +35,68 @@
 .timeline {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 24px;
   position: relative;
   padding-left: 20px;
-  border-left: 1px solid var(--glass-border);
+  border-left: 2px solid var(--border-strong);
 }
 
 .timeline-item {
   padding: 2rem;
-  border-radius: 16px;
+  border-radius: var(--radius-card);
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--card-shadow);
   position: relative;
-  transition: var(--transition-smooth);
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 
 .timeline-item:hover {
-  transform: translateY(-5px);
-  border-color: rgba(0, 240, 255, 0.2);
-  box-shadow: 0 12px 40px 0 rgba(0, 240, 255, 0.05);
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
 }
 
 .timeline-dot {
   position: absolute;
-  left: -26px;
-  top: 35px;
+  left: -27px;
+  top: 32px;
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-  box-shadow: 0 0 10px var(--accent-cyan);
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent-light);
 }
 
 .timeline-header {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 1.25rem;
+  gap: 5px;
+  margin-bottom: 1.1rem;
 }
 
 .role-title {
-  font-size: 1.25rem;
-  color: #fff;
+  font-size: 1.15rem;
+  color: var(--text-primary);
   font-weight: 700;
 }
 
 .company-name {
   color: var(--text-secondary);
   font-weight: 500;
+  font-size: 0.95rem;
 }
 
 .period-badge {
   display: inline-block;
   align-self: flex-start;
-  padding: 4px 10px;
-  font-size: 0.8rem;
+  padding: 3px 10px;
+  font-size: 0.78rem;
   font-weight: 600;
-  color: var(--accent-cyan);
-  background: rgba(0, 240, 255, 0.06);
-  border: 1px solid rgba(0, 240, 255, 0.2);
+  color: var(--accent);
+  background: var(--accent-muted);
+  border: 1px solid rgba(201, 121, 62, 0.3);
   border-radius: 20px;
-  margin-top: 5px;
+  margin-top: 4px;
 }
 
 .timeline-details {
@@ -100,13 +104,13 @@
   padding-left: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
 }
 
 .timeline-details li {
   color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 0.93rem;
+  line-height: 1.6;
   position: relative;
   padding-left: 1.25rem;
 }
@@ -115,39 +119,41 @@
   content: "▹";
   position: absolute;
   left: 0;
-  color: var(--accent-cyan);
+  color: var(--accent);
 }
 
-/* Resume Cards (Education, Strengths, Languages) */
+/* Education, Strengths, Languages cards */
 .education-card,
 .strengths-card,
 .languages-card {
   padding: 2rem;
-  border-radius: 16px;
-  transition: var(--transition-smooth);
+  border-radius: var(--radius-card);
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 
 .education-card:hover,
 .strengths-card:hover,
 .languages-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(176, 38, 255, 0.2);
-  box-shadow: 0 12px 40px 0 rgba(176, 38, 255, 0.05);
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
 }
 
 .education-card {
   display: flex;
-  gap: 20px;
+  gap: 18px;
   align-items: flex-start;
 }
 
 .edu-icon {
-  font-size: 2.2rem;
-  background: rgba(176, 38, 255, 0.06);
-  border: 1px solid rgba(176, 38, 255, 0.2);
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
+  font-size: 2rem;
+  background: var(--accent-muted);
+  border: 1px solid rgba(201,121,62,0.25);
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -155,97 +161,88 @@
 }
 
 .edu-details h4 {
-  font-size: 1.15rem;
-  color: #fff;
-  margin-bottom: 8px;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  font-weight: 700;
 }
 
 .edu-details .university {
   color: var(--text-secondary);
   font-weight: 500;
-  font-size: 0.95rem;
-  margin-bottom: 4px;
+  font-size: 0.9rem;
+  margin-bottom: 3px;
 }
 
 .edu-details .college {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
 }
 
-/* Strengths List */
+/* Strengths */
 .strengths-list-bullets {
   list-style: none;
-  padding-left: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 11px;
 }
 
 .strengths-list-bullets li {
   color: var(--text-secondary);
-  font-size: 0.95rem;
+  font-size: 0.93rem;
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .strength-icon {
-  color: var(--accent-purple);
+  color: var(--accent);
   font-weight: bold;
   flex-shrink: 0;
-  text-shadow: 0 0 8px rgba(176, 38, 255, 0.5);
 }
 
-/* Languages Card */
+/* Languages */
 .languages-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
 }
 
 .language-badge {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--glass-border);
+  gap: 8px;
+  padding: 9px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
   border-radius: 30px;
-  transition: var(--transition-smooth);
+  transition: background 0.25s, border-color 0.25s;
 }
 
 .language-badge:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(0, 240, 255, 0.3);
+  background: var(--accent-muted);
+  border-color: rgba(201,121,62,0.4);
 }
 
 .lang-name {
-  color: #fff;
+  color: var(--text-primary);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
 }
 
 .lang-level {
-  color: var(--accent-cyan);
-  font-size: 0.8rem;
-  background: rgba(0, 240, 255, 0.08);
+  color: var(--accent);
+  font-size: 0.78rem;
+  background: var(--accent-muted);
   padding: 2px 8px;
   border-radius: 12px;
   font-weight: 500;
 }
 
 @media (max-width: 900px) {
-  .resume-section {
-    padding: 80px 5%;
-  }
-
-  .resume-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .timeline-item, .education-card, .strengths-card, .languages-card {
-    padding: 1.5rem;
-  }
+  .resume-section { padding: 5rem 6%; }
+  .resume-grid { grid-template-columns: 1fr; gap: 32px; }
+  .timeline-item, .education-card, .strengths-card, .languages-card { padding: 1.5rem; }
 }

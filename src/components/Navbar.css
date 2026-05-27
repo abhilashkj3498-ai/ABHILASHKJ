@@ -7,7 +7,7 @@
   z-index: 1000;
   display: flex;
   justify-content: center;
-  padding: 1.25rem 2rem;
+  padding: 1.1rem 2rem;
 }
 
 /* ── Navbar pill ────────────────────────────────────────────────────────── */
@@ -17,89 +17,72 @@
   align-items: center;
   width: 100%;
   max-width: 1100px;
-  padding: 0.75rem 1.75rem;
-  border-radius: 50px;
-  background: rgba(10, 10, 10, 0.7);
+  padding: 0.7rem 1.6rem;
+  border-radius: var(--radius-pill);
+  background: rgba(253, 244, 220, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 4px 24px rgba(120, 80, 30, 0.1), inset 0 1px 0 rgba(255,255,255,0.6);
 }
 
 /* ── Logo ───────────────────────────────────────────────────────────────── */
 .logo a {
-  font-size: 1.45rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.5px;
   transition: opacity 0.2s;
 }
 
-.logo a:hover { opacity: 0.8; }
+.logo a:hover { opacity: 0.7; }
 
 .logo span {
-  color: var(--accent-cyan);
-  text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+  color: var(--accent);
 }
 
-/* ── Desktop nav links ──────────────────────────────────────────────────── */
+/* ── Nav links ──────────────────────────────────────────────────────────── */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.15rem;
 }
 
 .nav-links a {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 500;
   color: var(--text-secondary);
   padding: 0.45rem 0.9rem;
-  border-radius: 30px;
+  border-radius: var(--radius-pill);
   transition: color 0.25s ease, background 0.25s ease;
   position: relative;
 }
 
 .nav-links a:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--accent);
+  background: var(--accent-muted);
 }
 
-/* Active glow underline trick */
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: var(--accent-cyan);
-  border-radius: 2px;
-  transform: translateX(-50%);
-  transition: width 0.25s ease;
-}
-
-.nav-links a:hover::after { width: 40%; }
-
-/* ── Primary CTA button ─────────────────────────────────────────────────── */
+/* ── CTA button ─────────────────────────────────────────────────────────── */
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  background: var(--accent);
   color: #fff;
   padding: 0.55rem 1.4rem;
-  border-radius: 30px;
+  border-radius: var(--radius-pill);
   font-weight: 600;
   font-size: 0.88rem;
-  box-shadow: 0 2px 12px rgba(176, 38, 255, 0.3);
+  box-shadow: 0 2px 12px rgba(201, 121, 62, 0.3);
   border: none;
   cursor: pointer;
   font-family: var(--font-main);
-  transition: box-shadow 0.25s ease, transform 0.2s ease, opacity 0.2s;
+  transition: box-shadow 0.25s ease, transform 0.2s ease, background 0.2s;
   white-space: nowrap;
 }
 
 .btn-primary:hover {
-  box-shadow: 0 4px 22px rgba(0, 240, 255, 0.45);
+  background: var(--accent-light);
+  box-shadow: 0 4px 20px rgba(201, 121, 62, 0.4);
   transform: translateY(-2px);
-  opacity: 0.95;
 }
 
 /* ── Hamburger ──────────────────────────────────────────────────────────── */
@@ -135,11 +118,12 @@
   width: calc(100% - 2rem);
   max-width: 1100px;
   margin-top: 0.5rem;
-  border-radius: 20px;
+  border-radius: var(--radius-card);
   padding: 1.5rem 2rem;
-  background: rgba(10, 10, 10, 0.97);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(253, 244, 220, 0.97);
+  border: 1px solid var(--border-strong);
   backdrop-filter: blur(20px);
+  box-shadow: 0 8px 30px rgba(120, 80, 30, 0.1);
 }
 
 .mobile-menu ul {
@@ -158,7 +142,7 @@
   display: block;
 }
 
-.mobile-menu a:hover { color: var(--accent-cyan); }
+.mobile-menu a:hover { color: var(--accent); }
 
 .mobile-cta {
   display: block;
@@ -175,15 +159,9 @@
     align-items: center;
   }
 
-  .navbar {
-    padding: 0.65rem 1.25rem;
-    border-radius: 30px;
-  }
+  .navbar { padding: 0.65rem 1.25rem; border-radius: 28px; }
 
-  .nav-links,
-  .btn-primary:not(.mobile-cta) {
-    display: none;
-  }
+  .nav-links, .btn-primary:not(.mobile-cta) { display: none; }
 
   .hamburger { display: flex; }
 
