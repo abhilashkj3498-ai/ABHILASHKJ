@@ -5,34 +5,14 @@
 
 export const CATEGORIES = [
   {
-    name:   'Social Media Creatives',
-    slug:   'social-media-creatives',
-    folder: 'social-media-creatives',
+    name:   'Social Media Promotional Videos',
+    slug:   'social-media-promotional-videos',
+    folder: 'social-media-promotional-videos',
   },
   {
-    name:   'Business Card Designs',
-    slug:   'business-card-designs',
-    folder: 'business-card-designs',
-  },
-  {
-    name:   'Catalogue Designs',
-    slug:   'catalogue-designs',
-    folder: 'catalogue-designs',
-  },
-  {
-    name:   'Label Designs',
-    slug:   'label-designs',
-    folder: 'label-designs',
-  },
-  {
-    name:   'Packaging Designs',
-    slug:   'packaging-designs',
-    folder: 'packaging-designs',
-  },
-  {
-    name:   'Motion Graphic Works',
-    slug:   'motion-graphic-works',
-    folder: 'motion-graphic-works',
+    name:   'Photography Projects',
+    slug:   'photography-projects',
+    folder: 'photography-projects',
   },
   {
     name:   'Video Editing Works',
@@ -40,8 +20,8 @@ export const CATEGORIES = [
     folder: 'video-editing-works',
   },
   {
-    name:   'Stationary Print Design',
-    slug:   'stationary-print-design',
-    folder: 'stationary-print-design',
+    name:   'Motion Graphic Works',
+    slug:   'motion-graphic-works',
+    folder: 'motion-graphic-works',
   },
 ];

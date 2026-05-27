@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import SoftwareSkills from './components/SoftwareSkills';
 import KeySkills from './components/KeySkills';
+import Resume from './components/Resume';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import CategoryPage from './pages/CategoryPage';
@@ -18,6 +19,7 @@ const HomePage = () => (
       <About />
       <SoftwareSkills />
       <KeySkills />
+      <Resume />
       <Projects />
       <Contact />
     </main>

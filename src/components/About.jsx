@@ -12,23 +12,23 @@ const About = () => {
       <div className="about-content">
         <div className="about-text glass">
           <p>
-            Hello! I'm Rahul Pr, a Creative Visual Designer based in Mananthavady, India.
-            I hold a BA in Multimedia and am deeply passionate about transforming ideas into
-            impactful visual experiences.
+            Hello! I'm Rahul Pr, a detail-oriented Videographer, Photographer, and Video Editor based in Mananthavady, India.
+            With a solid foundation in digital media production and content creation, I focus on capturing high-quality visual content
+            and crafting stories that resonate with audiences.
           </p>
           <p>
-            My work spans across graphic design, UI/UX, motion graphics, packaging, photography,
-            and video editing. I've had the privilege of designing engaging creatives, modern
-            product catalogs, and elegant brand presentations for clients across various industries.
+            Over the past 1.5 years, I have worked on commercial and promotional video projects, managing production workflows from
+            initial concept through to final delivery. My experience includes cinematic shooting, post-production, lighting composition,
+            and creating optimized content tailored for Instagram, YouTube, and digital branding campaigns.
           </p>
-          <p>Here are my core skills and areas of expertise:</p>
+          <p>Here are my core areas of expertise:</p>
           <ul className="skills-list">
-            <li>Social Media Design</li>
-            <li>Print & Packaging Design</li>
-            <li>UI/UX Design</li>
-            <li>Video Editing</li>
-            <li>Motion Graphics</li>
-            <li>Photography & Videography</li>
+            <li>Cinematic Shooting</li>
+            <li>Video Editing & Color Grading</li>
+            <li>Portrait & Product Photography</li>
+            <li>Event Photography & Retouching</li>
+            <li>Production Management</li>
+            <li>Social Media Content Creation</li>
           </ul>
         </div>
 

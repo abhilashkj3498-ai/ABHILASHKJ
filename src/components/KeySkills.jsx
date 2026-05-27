@@ -2,14 +2,16 @@ import './KeySkills.css';
 
 const KeySkills = () => {
   const skills = [
-    "Social Media Designing",
-    "Print Designing",
-    "Videography",
-    "Package Designing",
-    "Video Editing",
-    "Motion Graphics",
-    "Photography",
-    "UI/UX Designing"
+    "Cinematic Shooting",
+    "Camera Handling",
+    "Lighting Setup & Composition",
+    "Portrait & Product Photography",
+    "Event Photography & Photo Retouching",
+    "Video Editing & Color Grading",
+    "Production Management",
+    "Shoot Coordination & Planning",
+    "Social Media Content Creation",
+    "Visual Storytelling"
   ];
 
   return (

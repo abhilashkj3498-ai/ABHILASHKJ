@@ -61,13 +61,12 @@
 }
 
 /* Base Colors Approximations */
-.ps { background: #001D2D; color: #2CACDF; }
-.ai { background: #351C0C; color: #ED8B27; }
-.ae { background: #1C1149; color: #8F76DE; }
 .pr { background: #26134D; color: #7F6DEB; }
-.xd { background: #340924; color: #CC55A1; }
-.id { background: #39111F; color: #C23862; }
+.dr { background: #0E1621; color: #FF9E1B; border: 1px solid rgba(255, 158, 27, 0.25); }
+.ae { background: #1C1149; color: #8F76DE; }
 .lr { background: #0E2941; color: #43A5D4; }
+.ps { background: #001D2D; color: #2CACDF; }
+.kl { background: #1D0E1F; color: #F43F5E; border: 1px solid rgba(244, 63, 94, 0.25); }
 
 @media (max-width: 768px) {
   .skills-container { padding: 30px 20px; }

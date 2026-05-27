@@ -6,11 +6,10 @@ const Hero = () => {
       <div className="hero-content">
         <h4 className="greeting">Hi, I'm</h4>
         <h1 className="name">Rahul Pr</h1>
-        <h2 className="role">Creative Visual Designer.</h2>
+        <h2 className="role">Videographer, Photographer & Video Editor</h2>
         <p className="description">
-          BA in Multimedia specializing in graphic design, UI/UX, motion graphics,
-          packaging, photography, and video editing. Passionate about transforming
-          ideas into impactful visual experiences.
+          Creative and detail-oriented digital media professional with 1.5 years of professional
+          experience in digital media production, cinematic shooting, color grading, and visual storytelling.
         </p>
         <div className="hero-cta">
             <button

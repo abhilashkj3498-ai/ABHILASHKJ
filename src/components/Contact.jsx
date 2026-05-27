@@ -21,7 +21,7 @@ const Contact = () => {
       </div>
       
       <footer className="footer">
-        <p>Built by Rahul Pr. Creative Visual Designer.</p>
+        <p>Built by Rahul Pr. Videographer, Photographer & Video Editor.</p>
       </footer>
     </section>
   );

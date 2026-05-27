@@ -4,52 +4,28 @@ import './Projects.css';
 const Projects = () => {
   const projectList = [
     {
-      title:       'Social Media Creatives',
-      description: 'Designed engaging, brand-consistent creatives focusing on product promotion and digital engagement.',
-      tech:        ['Graphic Design', 'Brand Identity', 'Marketing'],
-      slug:        'social-media-creatives',
+      title:       'Social Media Promotional Videos',
+      description: 'Created engaging promotional videos for businesses and marketing campaigns. Edited short-form content optimized for Instagram Reels and YouTube Shorts.',
+      tech:        ['Social Media', 'Short-form Video', 'Cinematic Transitions'],
+      slug:        'social-media-promotional-videos',
     },
     {
-      title:       'Business Card Designs',
-      description: 'Created distinctive business cards — minimal industrial for Stellar Constructions, elegant typography for a Wedding Media Company, and vibrant layouts for a Travel Agency.',
-      tech:        ['Print Design', 'Typography', 'Layout'],
-      slug:        'business-card-designs',
-    },
-    {
-      title:       'Catalogue Designs',
-      description: 'Developed visually appealing catalogues including a clean product catalogue for Imperion (Malaysia), a modern showcase for Salpido, and a cultural export catalogue for Ethnic Flavors.',
-      tech:        ['Print Layout', 'Product Showcase', 'Editorial'],
-      slug:        'catalogue-designs',
-    },
-    {
-      title:       'Label Designs',
-      description: 'Designed an Ethnic Flavors bottle label by combining traditional cultural aesthetics with a modern, eye-catching layout.',
-      tech:        ['Labelling', 'Visual Aesthetic', 'Typography'],
-      slug:        'label-designs',
-    },
-    {
-      title:       'Packaging Designs',
-      description: 'Developed structured packaging templates that enhance product presentation and maintain brand integrity.',
-      tech:        ['Packaging', '3D Visualisation', 'Branding'],
-      slug:        'packaging-designs',
-    },
-    {
-      title:       'Motion Graphic Works',
-      description: 'A collection of dynamic motion graphics showcasing visual storytelling, smooth animations, and engaging digital experiences.',
-      tech:        ['After Effects', 'Animation', 'Visual Storytelling'],
-      slug:        'motion-graphic-works',
+      title:       'Photography Projects',
+      description: 'Conducted portrait, event, and product photography shoots. Enhanced and retouched photographs using Lightroom and Photoshop for professional delivery.',
+      tech:        ['Portrait & Event', 'Product Shoots', 'Lightroom & Photoshop'],
+      slug:        'photography-projects',
     },
     {
       title:       'Video Editing Works',
-      description: 'Professional video editing projects featuring seamless transitions, colour grading, and compelling narratives.',
-      tech:        ['Premiere Pro', 'Video Production', 'Colour Grading'],
+      description: 'Professional video editing projects featuring seamless transitions, cinematic color grading, and precise audio synchronization.',
+      tech:        ['Premiere Pro', 'DaVinci Resolve', 'Color Correction'],
       slug:        'video-editing-works',
     },
     {
-      title:       'Stationary Print Design',
-      description: 'A curated collection of stationery print designs including letterheads, envelopes, notepads, and branded office essentials crafted with precision and aesthetic appeal.',
-      tech:        ['Print Design', 'Branding', 'Layout'],
-      slug:        'stationary-print-design',
+      title:       'Motion Graphic Works',
+      description: 'A collection of dynamic motion graphics showcasing visual storytelling, smooth typography animations, and promotional digital assets.',
+      tech:        ['After Effects', 'Keyframe Animation', 'Visual Storytelling'],
+      slug:        'motion-graphic-works',
     },
   ];
 

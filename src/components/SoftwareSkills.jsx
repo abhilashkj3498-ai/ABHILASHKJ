@@ -7,22 +7,12 @@ const SoftwareSkills = () => {
       <div className="skills-container glass">
         
         <div className="icons-grid">
-          <div className="adobe-icon ps">Ps</div>
-          <div className="adobe-icon ai">Ai</div>
-          <div className="adobe-icon ae">Ae</div>
-          <div className="adobe-icon pr">Pr</div>
-          <div className="adobe-icon xd">Xd</div>
-          
-          <div className="icons-row-2">
-            <div className="adobe-icon id">Id</div>
-            <div className="adobe-icon lr">Lr</div>
-            <div className="icon-image figma">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma" />
-            </div>
-            <div className="icon-image acrobat">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" alt="Acrobat" />
-            </div>
-          </div>
+          <div className="adobe-icon pr" title="Adobe Premiere Pro">Pr</div>
+          <div className="adobe-icon dr" title="DaVinci Resolve">Dr</div>
+          <div className="adobe-icon ae" title="Adobe After Effects">Ae</div>
+          <div className="adobe-icon lr" title="Adobe Lightroom">Lr</div>
+          <div className="adobe-icon ps" title="Adobe Photoshop">Ps</div>
+          <div className="adobe-icon kl" title="Kling AI">Kl</div>
         </div>
 
       </div>
