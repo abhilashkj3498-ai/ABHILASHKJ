@@ -22,19 +22,37 @@ function pdfPreviewUrl(cloudName, publicId) {
   return `https://res.cloudinary.com/${cloudName}/image/upload/pg_1,q_auto,f_auto,w_800/${publicId}.jpg`;
 }
 
-/**
- * Fetch assets from a folder by resource type
- */
-async function fetchFolderAssets(folder, type) {
-  try {
-    const res = await cloudinary.api.resources_by_asset_folder(folder, {
-      resource_type: type,
-      max_results: 100,
-    });
-    return res.resources || [];
-  } catch (err) {
-    console.warn(`[API] Fetch warning for folder "${folder}" (${type}):`, err.message || err);
-    return [];
+// ── Helper: Fetch folder assets from candidates list ──────────────────────────
+async function fetchAssetsFromCandidates(candidates) {
+  for (let i = 0; i < candidates.length; i++) {
+    const folder = candidates[i];
+    try {
+      console.log(`[API] Fetching from candidate folder: ${folder}`);
+      const [images, videos, raws] = await Promise.all([
+        cloudinary.api.resources_by_asset_folder(folder, { resource_type: 'image', max_results: 100 }),
+        cloudinary.api.resources_by_asset_folder(folder, { resource_type: 'video', max_results: 100 }),
+        cloudinary.api.resources_by_asset_folder(folder, { resource_type: 'raw', max_results: 100 }),
+      ]);
+      
+      console.log(`[API] Success fetching from folder "${folder}"`);
+      return {
+        folder,
+        images: images.resources || [],
+        videos: videos.resources || [],
+        raws: raws.resources || []
+      };
+    } catch (err) {
+      const isNotFound = err.error && err.error.http_code === 404 && err.error.message.includes("Folder doesn't exist");
+      if (isNotFound && i < candidates.length - 1) {
+        console.log(`[API] Folder "${folder}" not found. Trying next candidate...`);
+        continue;
+      }
+      if (isNotFound) {
+        console.log(`[API] All folder candidates exhausted.`);
+        return { folder, images: [], videos: [], raws: [] };
+      }
+      throw err;
+    }
   }
 }
 
@@ -50,36 +68,28 @@ export default async function handler(req, res) {
   const { category } = req.query;
   if (!category) return res.status(400).json({ error: 'Missing category parameter' });
 
-  const mapping = {
-    'social-media-promotional-videos': 'VEEDU/Social_Media_Fromotional_Videos',
-    'photography-projects':            'VEEDU/Photography_Projects',
-    'video-editing-works':             'VEEDU/Video_Editing_Works',
+  const candidateMappings = {
+    'social-media-promotional-videos': [
+      'myworks/social_media_promotional_videos',
+      'VEEDU/Social_Media_Fromotional_Videos',
+      'VEEDU/Social_Media_Promotional_Videos'
+    ],
+    'photography-projects': [
+      'myworks/photography_projects',
+      'VEEDU/Photography_Projects'
+    ],
+    'video-editing-works': [
+      'myworks/video_editing_works',
+      'VEEDU/Video_Editing_Works'
+    ]
   };
 
-  let folder = mapping[category] || `VEEDU/${category}`;
+  const candidates = candidateMappings[category] || [`VEEDU/${category}`, `myworks/${category}`];
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || process.env.CLOUDINARY_CLOUD_NAME;
 
-  console.log(`[API] Querying Cloudinary for folder: ${folder}`);
-
   try {
-    let [images, videos, raws] = await Promise.all([
-      fetchFolderAssets(folder, 'image'),
-      fetchFolderAssets(folder, 'video'),
-      fetchFolderAssets(folder, 'raw'),
-    ]);
-
-    // Fallback if the folder returns empty and it is the promotional videos category
-    if (category === 'social-media-promotional-videos' && images.length === 0 && videos.length === 0) {
-      const fallbackFolder = 'VEEDU/Social_Media_Promotional_Videos';
-      console.log(`[API] Folder "${folder}" was empty. Trying fallback folder "${fallbackFolder}"`);
-      [images, videos, raws] = await Promise.all([
-        fetchFolderAssets(fallbackFolder, 'image'),
-        fetchFolderAssets(fallbackFolder, 'video'),
-        fetchFolderAssets(fallbackFolder, 'raw'),
-      ]);
-    }
-
-    console.log(`[API] Found ${images.length} images, ${videos.length} videos, ${raws.length} raws`);
+    const { folder, images, videos, raws } = await fetchAssetsFromCandidates(candidates);
+    console.log(`[API] Resolved category "${category}" to folder "${folder}" | Found ${images.length} images, ${videos.length} videos, ${raws.length} raws`);
 
     // Map images and videos
     const mediaItems = [...images, ...videos].map((r) => ({
