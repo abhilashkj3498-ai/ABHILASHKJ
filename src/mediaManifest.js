@@ -19,9 +19,4 @@ export const CATEGORIES = [
     slug:   'video-editing-works',
     folder: 'video-editing-works',
   },
-  {
-    name:   'Motion Graphic Works',
-    slug:   'motion-graphic-works',
-    folder: 'motion-graphic-works',
-  },
 ];

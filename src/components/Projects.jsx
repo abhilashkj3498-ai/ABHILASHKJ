@@ -21,12 +21,6 @@ const Projects = () => {
       tech:        ['Premiere Pro', 'DaVinci Resolve', 'Color Correction'],
       slug:        'video-editing-works',
     },
-    {
-      title:       'Motion Graphic Works',
-      description: 'A collection of dynamic motion graphics showcasing visual storytelling, smooth typography animations, and promotional digital assets.',
-      tech:        ['After Effects', 'Keyframe Animation', 'Visual Storytelling'],
-      slug:        'motion-graphic-works',
-    },
   ];
 
   return (
