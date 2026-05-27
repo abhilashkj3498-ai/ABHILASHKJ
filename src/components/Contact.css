@@ -25,39 +25,136 @@
 }
 
 .contact-glass {
-  padding: 3rem;
-  border-radius: var(--radius-card);
-  width: 100%;
-  max-width: 480px;
-  margin-bottom: 5rem;
+  padding: 3.5rem 2.5rem;
   background: 
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E"),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 100%),
-    var(--glass-bg);
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.015'/%3E%3C/svg%3E"),
+    rgba(250, 227, 185, 0.35);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 36px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45);
+  width: 100%;
+  max-width: 580px;
+  margin-bottom: 5rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .contact-glass:hover {
-  box-shadow: 
-    0 16px 40px rgba(120, 80, 30, 0.1),
-    inset 0 1px 2px rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-4px);
+  box-shadow: 
+    0 16px 48px rgba(120, 80, 30, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
-.contact-glass p {
-  color: var(--text-secondary);
-  font-size: 0.98rem;
-  margin-bottom: 0.6rem;
-  text-align: left;
+/* Icons Container */
+.social-icons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
-.contact-glass p strong {
+/* Individual Social Link Bubble */
+.social-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
   color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.social-link:hover {
+  transform: translateY(-6px) scale(1.12);
+  background: rgba(250, 227, 185, 0.6);
+  border-color: rgba(200, 138, 54, 0.6);
+  color: #7b4c10; /* Elegant deep golden brown */
+  box-shadow: 
+    0 12px 24px rgba(200, 138, 54, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45);
+}
+
+/* Tooltip Labels */
+.social-link::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  background: rgba(43, 29, 14, 0.95);
+  color: #fae3b9;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(250, 227, 185, 0.2);
+  letter-spacing: 0.2px;
+}
+
+.social-link:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Small arrow for tooltip */
+.social-link::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  border-width: 6px 6px 0 6px;
+  border-style: solid;
+  border-color: rgba(43, 29, 14, 0.95) transparent transparent transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.social-link:hover::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Responsive adjustment */
+@media (max-width: 480px) {
+  .contact-glass {
+    padding: 2.5rem 1.5rem;
+    border-radius: 28px;
+  }
+  .social-icons-container {
+    gap: 1rem;
+  }
+  .social-link {
+    width: 52px;
+    height: 52px;
+  }
+  .social-link svg {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 /* ── Footer ─────────────────────────────────────────────────────────────── */

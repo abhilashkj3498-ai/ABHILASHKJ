@@ -28,18 +28,12 @@ async function fetchAssetsFromCandidates(candidates) {
     const folder = candidates[i];
     try {
       console.log(`[API] Fetching from candidate folder: ${folder}`);
-      const [images, videos, raws] = await Promise.all([
-        cloudinary.api.resources_by_asset_folder(folder, { resource_type: 'image', max_results: 100 }),
-        cloudinary.api.resources_by_asset_folder(folder, { resource_type: 'video', max_results: 100 }),
-        cloudinary.api.resources_by_asset_folder(folder, { resource_type: 'raw', max_results: 100 }),
-      ]);
-      
+      const res = await cloudinary.api.resources_by_asset_folder(folder, { max_results: 100 });
       console.log(`[API] Success fetching from folder "${folder}"`);
+      const resources = res.resources || [];
       return {
         folder,
-        images: images.resources || [],
-        videos: videos.resources || [],
-        raws: raws.resources || []
+        resources
       };
     } catch (err) {
       const isNotFound = err.error && err.error.http_code === 404 && err.error.message.includes("Folder doesn't exist");
@@ -49,7 +43,7 @@ async function fetchAssetsFromCandidates(candidates) {
       }
       if (isNotFound) {
         console.log(`[API] All folder candidates exhausted.`);
-        return { folder, images: [], videos: [], raws: [] };
+        return { folder, resources: [] };
       }
       throw err;
     }
@@ -88,27 +82,29 @@ export default async function handler(req, res) {
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || process.env.CLOUDINARY_CLOUD_NAME;
 
   try {
-    const { folder, images, videos, raws } = await fetchAssetsFromCandidates(candidates);
-    console.log(`[API] Resolved category "${category}" to folder "${folder}" | Found ${images.length} images, ${videos.length} videos, ${raws.length} raws`);
+    const { folder, resources } = await fetchAssetsFromCandidates(candidates);
+    console.log(`[API] Resolved category "${category}" to folder "${folder}" | Found ${resources.length} total resources`);
 
     // Map images and videos
-    const mediaItems = [...images, ...videos].map((r) => ({
-      url:       r.resource_type === 'image'
-                   ? optimiseImageUrl(r.secure_url)
-                   : r.secure_url,
-      preview:   r.resource_type === 'image'
-                   ? optimiseImageUrl(r.secure_url)
-                   : r.secure_url,
-      type:      r.resource_type,
-      format:    r.format,
-      public_id: r.public_id,
-      width:     r.width  ?? null,
-      height:    r.height ?? null,
-    }));
+    const mediaItems = resources
+      .filter((r) => r.resource_type === 'image' || r.resource_type === 'video')
+      .map((r) => ({
+        url:       r.resource_type === 'image'
+                     ? optimiseImageUrl(r.secure_url)
+                     : r.secure_url,
+        preview:   r.resource_type === 'image'
+                     ? optimiseImageUrl(r.secure_url)
+                     : r.secure_url,
+        type:      r.resource_type,
+        format:    r.format,
+        public_id: r.public_id,
+        width:     r.width  ?? null,
+        height:    r.height ?? null,
+      }));
 
     // Map raw PDFs
-    const pdfItems = raws
-      .filter((r) => r.format === 'pdf')
+    const pdfItems = resources
+      .filter((r) => r.resource_type === 'raw' && r.format === 'pdf')
       .map((r) => ({
         url:       r.secure_url,
         preview:   pdfPreviewUrl(cloudName, r.public_id),
