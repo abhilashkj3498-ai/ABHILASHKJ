@@ -1,6 +1,61 @@
+import { useEffect, useRef } from 'react';
 import './Resume.css';
 
 const Resume = () => {
+  const timelineRef = useRef(null);
+  const indicatorRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const timeline = timelineRef.current;
+      const indicator = indicatorRef.current;
+      if (!timeline || !indicator) return;
+
+      const rect = timeline.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      // Define the scroll trigger line in the middle of the viewport
+      const triggerPoint = viewportHeight * 0.5;
+
+      // Calculate how much of the timeline container has crossed the trigger point
+      const totalHeight = rect.height;
+      const scrolled = triggerPoint - rect.top;
+
+      // Compute scroll progress percentage (clamped between 0 and 1)
+      let progress = scrolled / totalHeight;
+      progress = Math.max(0, Math.min(1, progress));
+
+      // Align vertical travel range exactly with the first and last card dots
+      const firstItem = timeline.querySelector('.timeline-item');
+      const lastItem = timeline.querySelector('.timeline-item:last-child');
+      
+      let startY = 32; // Default start offset (32px top padding)
+      let endY = totalHeight - 32;
+
+      if (firstItem && lastItem) {
+        startY = firstItem.offsetTop + 32;
+        endY = lastItem.offsetTop + 32;
+      }
+
+      const targetY = startY + progress * (endY - startY);
+
+      // Apply smooth translate transform
+      indicator.style.transform = `translateY(${targetY}px)`;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+    
+    // Trigger calculation after layout paints
+    const animId = requestAnimationFrame(handleScroll);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
+
   const experiences = [
     {
       role: 'Videographer, Photographer & Video Editor',
@@ -58,7 +113,10 @@ const Resume = () => {
         {/* Left Column: Work Experience */}
         <div className="resume-col">
           <h3 className="sub-header">Professional Experience</h3>
-          <div className="timeline">
+          <div className="timeline" ref={timelineRef}>
+            {/* Smooth scrolling active indicator */}
+            <div className="timeline-indicator" ref={indicatorRef}></div>
+
             {experiences.map((exp, index) => (
               <div key={index} className="timeline-item glass">
                 <div className="timeline-dot"></div>
@@ -98,7 +156,7 @@ const Resume = () => {
             <div className="strengths-card glass">
               <ul className="strengths-list-bullets">
                 {strengths.map((strength, index) => (
-                  <li key={index}>
+                   <li key={index}>
                     <span className="strength-icon">✦</span>
                     {strength}
                   </li>

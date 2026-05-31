@@ -71,8 +71,24 @@
   width: 11px;
   height: 11px;
   border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--border-strong);
+  z-index: 2;
+}
+
+.timeline-indicator {
+  position: absolute;
+  left: -6.5px;
+  top: 0;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent-light);
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 6px var(--accent-light);
+  z-index: 5;
+  pointer-events: none;
+  will-change: transform;
+  transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .timeline-header {

@@ -4,6 +4,7 @@
   max-width: var(--max-width);
   margin: 0 auto;
   position: relative;
+  overflow: hidden;
 }
 
 /* Ambient blur orbs behind projects */
