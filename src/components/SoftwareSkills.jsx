@@ -1,4 +1,6 @@
 import './SoftwareSkills.css';
+import davinciIcon from '../assets/davinci.jpg';
+import klingIcon from '../assets/kling.jpg';
 
 const SoftwareSkills = () => {
   return (
@@ -8,11 +10,15 @@ const SoftwareSkills = () => {
         
         <div className="icons-grid">
           <div className="adobe-icon pr" title="Adobe Premiere Pro">Pr</div>
-          <div className="adobe-icon dr" title="DaVinci Resolve">Dr</div>
+          <div className="adobe-icon dr-img" title="DaVinci Resolve">
+            <img src={davinciIcon} alt="DaVinci Resolve" className="skill-icon-img" />
+          </div>
           <div className="adobe-icon ae" title="Adobe After Effects">Ae</div>
           <div className="adobe-icon lr" title="Adobe Lightroom">Lr</div>
           <div className="adobe-icon ps" title="Adobe Photoshop">Ps</div>
-          <div className="adobe-icon kl" title="Kling AI">Kl</div>
+          <div className="adobe-icon kl-img" title="Kling AI">
+            <img src={klingIcon} alt="Kling AI" className="skill-icon-img" />
+          </div>
         </div>
 
       </div>
