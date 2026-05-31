@@ -24,7 +24,21 @@ const Resume = () => {
       const triggerPoint = viewportHeight * 0.5;
 
       // Calculate progress based on full timeline container height crossing the triggerPoint
-      let progress = (triggerPoint - rect.top) / rect.height;
+      let progress = 0;
+      if (rect.height > 0) {
+        progress = (triggerPoint - rect.top) / rect.height;
+      }
+
+      // Smoothly interpolate progress to 1 as the user reaches the bottom of the scrollable page
+      const scrollY = window.scrollY || window.pageYOffset;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (maxScroll > 0) {
+        const bottomThreshold = 150; // trigger interpolation in the last 150px of page scroll
+        if (scrollY > maxScroll - bottomThreshold) {
+          const pageScrollProgress = (scrollY - (maxScroll - bottomThreshold)) / bottomThreshold;
+          progress = progress + (1 - progress) * Math.max(0, Math.min(1, pageScrollProgress));
+        }
+      }
       progress = Math.max(0, Math.min(1, progress));
 
       // Map progress exactly to timeline offsets of checkpoints
