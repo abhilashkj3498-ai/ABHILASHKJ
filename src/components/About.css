@@ -106,6 +106,7 @@
   .about-section { padding: 5rem 6%; text-align: center; }
   .about-content { grid-template-columns: 1fr; gap: 24px; }
   .about-text { padding: 2rem; }
+  .about-text p { text-align: center; }
   .section-title { justify-content: center; }
   .section-title .line { display: none; }
   .skills-list { justify-content: center; grid-template-columns: repeat(2, 1fr); }
@@ -114,7 +115,7 @@
 @media (max-width: 480px) {
   .about-section { padding: 3rem 1rem; }
   .about-text { padding: 1.5rem; }
-  .about-text p { font-size: 0.95rem; }
+  .about-text p { font-size: 0.95rem; text-align: center; }
   .skills-list { grid-template-columns: 1fr; gap: 8px; }
   .skills-list li { font-size: 0.9rem; }
 }
