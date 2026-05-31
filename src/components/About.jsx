@@ -10,6 +10,12 @@ const About = () => {
       </div>
 
       <div className="about-content">
+        <div className="about-image-container">
+          <div className="about-image glass" style={{ overflow: 'hidden', padding: 0 }}>
+            <img src={profilePic} alt="Abhilash" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        </div>
+
         <div className="about-text glass">
           <p>
             Hello! I'm Abhilash, a Creative and detail-oriented Videographer, Photographer, and Video Editor
@@ -30,12 +36,6 @@ const About = () => {
             <li>Production Management</li>
             <li>Social Media Content Creation</li>
           </ul>
-        </div>
-
-        <div className="about-image-container">
-          <div className="about-image glass" style={{ overflow: 'hidden', padding: 0 }}>
-            <img src={profilePic} alt="Abhilash" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
         </div>
       </div>
     </section>
