@@ -11,31 +11,30 @@ const Resume = () => {
       const indicator = indicatorRef.current;
       if (!timeline || !indicator) return;
 
-      const rect = timeline.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
 
-      // Define the scroll trigger line in the middle of the viewport
-      const triggerPoint = viewportHeight * 0.5;
-
-      // Calculate how much of the timeline container has crossed the trigger point
-      const totalHeight = rect.height;
-      const scrolled = triggerPoint - rect.top;
-
-      // Compute scroll progress percentage (clamped between 0 and 1)
-      let progress = scrolled / totalHeight;
-      progress = Math.max(0, Math.min(1, progress));
-
-      // Align vertical travel range exactly with the first and last card dots
+      // Locate first and last items to measure scroll progress
       const firstItem = timeline.querySelector('.timeline-item');
       const lastItem = timeline.querySelector('.timeline-item:last-child');
-      
-      let startY = 32; // Default start offset (32px top padding)
-      let endY = totalHeight - 32;
+      if (!firstItem || !lastItem) return;
 
-      if (firstItem && lastItem) {
-        startY = firstItem.offsetTop + 32;
-        endY = lastItem.offsetTop + 32;
-      }
+      const firstRect = firstItem.getBoundingClientRect();
+      const lastRect = lastItem.getBoundingClientRect();
+
+      // Compute centers of first and last card relative to viewport
+      const firstCenter = firstRect.top + firstRect.height / 2;
+      const lastCenter = lastRect.top + lastRect.height / 2;
+
+      // Trigger line in the center of viewport
+      const triggerPoint = viewportHeight * 0.5;
+
+      // Progress goes from 0 (first card center at screen center) to 1 (last card center at screen center)
+      let progress = (triggerPoint - firstCenter) / (lastCenter - firstCenter);
+      progress = Math.max(0, Math.min(1, progress));
+
+      // Map progress exactly to timeline offsets of checkpoints
+      const startY = firstItem.offsetTop + 32;
+      const endY = lastItem.offsetTop + 32;
 
       const targetY = startY + progress * (endY - startY);
 
