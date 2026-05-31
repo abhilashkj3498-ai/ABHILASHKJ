@@ -107,6 +107,7 @@
 
 .hamburger span {
   display: block;
+  width: 24px;
   height: 3px;
   background: var(--text-primary);
   border-radius: 3px;
@@ -114,20 +115,14 @@
   transform-origin: center;
 }
 
-.hamburger span:nth-child(1) { width: 24px; }
-.hamburger span:nth-child(2) { width: 18px; }
-.hamburger span:nth-child(3) { width: 12px; }
-
 .hamburger--open span:nth-child(1) {
-  width: 24px;
   transform: translateY(9px) rotate(45deg);
 }
 .hamburger--open span:nth-child(2) {
   opacity: 0;
-  width: 0;
+  transform: scaleX(0);
 }
 .hamburger--open span:nth-child(3) {
-  width: 24px;
   transform: translateY(-9px) rotate(-45deg);
 }
 
