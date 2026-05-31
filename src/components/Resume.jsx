@@ -14,23 +14,18 @@ const Resume = () => {
       const rect = timeline.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
 
-      // Define standard top scroll offset (e.g. 100px below top viewport)
-      const topOffset = 100;
+      // Locate first and last items robustly using querySelectorAll
+      const items = timeline.querySelectorAll('.timeline-item');
+      if (items.length === 0) return;
+      const firstItem = items[0];
+      const lastItem = items[items.length - 1];
 
-      // Calculate container travel range between entering viewport (topOffset) and exiting viewport (bottom)
-      const range = rect.height - (viewportHeight - topOffset);
-      let progress = 0;
-      if (range > 0) {
-        progress = (topOffset - rect.top) / range;
-      } else {
-        progress = rect.top < topOffset ? 1 : 0;
-      }
+      // Define standard trigger line in the middle of viewport
+      const triggerPoint = viewportHeight * 0.5;
+
+      // Calculate progress based on full timeline container height crossing the triggerPoint
+      let progress = (triggerPoint - rect.top) / rect.height;
       progress = Math.max(0, Math.min(1, progress));
-
-      // Locate first and last items to measure scroll progress
-      const firstItem = timeline.querySelector('.timeline-item');
-      const lastItem = timeline.querySelector('.timeline-item:last-child');
-      if (!firstItem || !lastItem) return;
 
       // Map progress exactly to timeline offsets of checkpoints
       const startY = firstItem.offsetTop + 32;
