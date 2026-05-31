@@ -292,10 +292,18 @@
 
 /* ── Responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .hero-section { padding: 0 1.5rem; padding-top: 90px; }
-  .hero-cta { flex-direction: column; align-items: center; }
-  .btn-primary-hero, .btn-ghost-hero { width: 100%; max-width: 300px; justify-content: center; }
+  .hero-section { padding: 0 1rem; padding-top: 90px; }
+  .hero-content { max-width: 100%; }
+  .role { font-size: clamp(0.95rem, 2vw, 1.2rem); }
+  .description { max-width: 100%; padding: 0 0.5rem; }
+  .hero-cta { flex-direction: column; align-items: center; width: 100%; }
+  .btn-primary-hero, .btn-ghost-hero { width: 100%; max-width: none; justify-content: center; padding: 0.85rem 1.5rem; }
 }
 @media (max-width: 480px) {
-  .name { letter-spacing: -1.5px; }
+  .name { letter-spacing: -1.5px; font-size: clamp(2.5rem, 8vw, 4rem); }
+  .hero-section { padding: 0 0.75rem; padding-top: 80px; }
+  .greeting { font-size: 0.75rem; padding: 5px 14px; }
+  .role { font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .description { font-size: 0.9rem; line-height: 1.75; margin-bottom: 2rem; }
+  .btn-primary-hero, .btn-ghost-hero { font-size: 0.9rem; padding: 0.8rem 1.2rem; }
 }
