@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { CATEGORIES } from '../mediaManifest';
+import { isSheetCategory, fetchSheetVideos } from '../utils/fetchSheetVideos';
 import LightboxModal from '../components/LightboxModal';
 import './CategoryPage.css';
 
@@ -19,7 +20,7 @@ const CategoryPage = () => {
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [loaded,        setLoaded]        = useState({});
 
-  // ── Fetch media from /api/projects/{slug} ─────────────────────────────────
+  // ── Fetch media: Google Sheets for specific slugs, Cloudinary API for rest ──
   const fetchMedia = useCallback(() => {
     if (!category) return;
 
@@ -28,6 +29,19 @@ const CategoryPage = () => {
     setMedia([]);
     setLoaded({});
 
+    // ── Google Sheets path ──
+    if (isSheetCategory(categorySlug)) {
+      fetchSheetVideos(categorySlug)
+        .then((videos) => setMedia(videos))
+        .catch((err) => {
+          console.error('Sheet fetch error:', err);
+          setError(err.message);
+        })
+        .finally(() => setLoading(false));
+      return;
+    }
+
+    // ── Cloudinary API path (unchanged) ──
     fetch(`/api/projects/${categorySlug}`)
       .then((res) => {
         if (!res.ok) throw new Error(`Server responded ${res.status}`);
@@ -125,7 +139,7 @@ const CategoryPage = () => {
               className={`media-card ${loaded[index] ? 'media-card--loaded' : ''}`}
               onClick={() => openLightbox(index)}
               onMouseEnter={
-                item.isVideo
+                item.isVideo && !item.isYouTube
                   ? (e) => {
                       const video = e.currentTarget.querySelector('video');
                       if (video) video.play().catch(() => {});
@@ -133,7 +147,7 @@ const CategoryPage = () => {
                   : undefined
               }
               onMouseLeave={
-                item.isVideo
+                item.isVideo && !item.isYouTube
                   ? (e) => {
                       const video = e.currentTarget.querySelector('video');
                       if (video) {
@@ -144,8 +158,25 @@ const CategoryPage = () => {
                   : undefined
               }
             >
-              {/* ── Video card ── */}
-              {item.isVideo && (
+              {/* ── YouTube thumbnail card ── */}
+              {item.isYouTube && (
+                <div className="media-video-wrapper">
+                  <img
+                    src={item.thumbnail}
+                    alt={item.filename}
+                    loading="lazy"
+                    decoding="async"
+                    className="media-thumb"
+                    onLoad={() => markLoaded(index)}
+                  />
+                  <div className="media-play-overlay">
+                    <span className="play-icon">▶</span>
+                  </div>
+                </div>
+              )}
+
+              {/* ── Video card (Cloudinary) ── */}
+              {item.isVideo && !item.isYouTube && (
                 <div className="media-video-wrapper">
                   <video
                     src={item.url}
