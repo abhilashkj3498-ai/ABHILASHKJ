@@ -61,7 +61,7 @@ const LightboxModal = ({ media, currentIndex, onClose, onPrev, onNext }) => {
         {!isPDF && item.isYouTube && (
           <div className="lightbox-youtube-wrapper">
             <iframe
-              src={`${item.embedUrl}?autoplay=1&rel=0`}
+              src={`${item.embedUrl}?autoplay=1&rel=0&modestbranding=1&showinfo=0`}
               title={item.filename}
               className="lightbox-youtube"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"

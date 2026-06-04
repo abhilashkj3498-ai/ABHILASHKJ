@@ -86,7 +86,7 @@ function toThumbnailUrl(url) {
   const videoId = embedMatch?.[1] || watchMatch?.[1] || shortMatch?.[1] || shortsMatch?.[1];
   if (!videoId) return null;
 
-  return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 }
 
 // ── Mapping of slug → Google Sheets CSV URL ──────────────────────────────────

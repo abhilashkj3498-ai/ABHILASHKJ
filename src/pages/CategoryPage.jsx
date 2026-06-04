@@ -160,7 +160,7 @@ const CategoryPage = () => {
             >
               {/* ── YouTube thumbnail card ── */}
               {item.isYouTube && (
-                <div className="media-video-wrapper">
+                <div className="media-video-wrapper yt-card" aria-label={`Play ${item.filename}`} role="button" tabIndex={0}>
                   <img
                     src={item.thumbnail}
                     alt={item.filename}
@@ -168,9 +168,25 @@ const CategoryPage = () => {
                     decoding="async"
                     className="media-thumb"
                     onLoad={() => markLoaded(index)}
+                    onError={(e) => {
+                      // Fallback to hqdefault if maxresdefault doesn't exist
+                      if (e.target.src.includes('maxresdefault')) {
+                        e.target.src = e.target.src.replace('maxresdefault', 'hqdefault');
+                      }
+                    }}
                   />
-                  <div className="media-play-overlay">
-                    <span className="play-icon">▶</span>
+                  {/* Cinematic gradient overlay */}
+                  <div className="yt-card-overlay" />
+                  {/* Premium play button */}
+                  <div className="yt-play-btn">
+                    <svg viewBox="0 0 68 48" width="68" height="48">
+                      <path className="yt-play-bg" d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="rgba(30,18,8,0.85)"/>
+                      <path d="M45 24L27 14v20" fill="#fff"/>
+                    </svg>
+                  </div>
+                  {/* Video title */}
+                  <div className="yt-card-title">
+                    <span>{item.filename}</span>
                   </div>
                 </div>
               )}
@@ -220,11 +236,14 @@ const CategoryPage = () => {
                 />
               )}
 
-              <div className="media-hover-overlay">
-                <span className="media-hover-icon">
-                  {item.isVideo ? '▶' : item.isPDF ? '📄' : '⤢'}
-                </span>
-              </div>
+              {/* Generic hover overlay — skip for YouTube (has custom overlay) */}
+              {!item.isYouTube && (
+                <div className="media-hover-overlay">
+                  <span className="media-hover-icon">
+                    {item.isVideo ? '▶' : item.isPDF ? '📄' : '⤢'}
+                  </span>
+                </div>
+              )}
             </div>
           ))}
         </div>
