@@ -291,7 +291,8 @@
 .resume-download-wrapper {
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 60px; /* 50–70px top margin from the last resume card */
+  padding-bottom: 30px; /* 20–40px bottom padding */
 }
 
 .resume-download-btn {
