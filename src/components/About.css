@@ -1,17 +1,18 @@
 /* ── About Section ──────────────────────────────────────────────────────── */
 .about-section {
   padding: var(--section-pad);
-  max-width: var(--max-width);
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.about-content {
+/* Premium Card container */
+.about-card {
   display: grid;
-  grid-template-columns: 2fr 3fr;
-  gap: 40px;
-}
-
-.about-text {
+  grid-template-columns: 1fr 1.3fr;
+  gap: 50px;
+  align-items: center; /* Vertically center the content */
+  padding: 50px;       /* Generous padding */
+  border-radius: 24px; /* Rounded corners */
   background: 
     url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E"),
     linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 100%),
@@ -20,12 +21,10 @@
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
-  border-radius: var(--radius-card);
-  padding: 3rem;
   transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
 }
 
-.about-text:hover {
+.about-card:hover {
   box-shadow: 
     0 16px 40px rgba(120, 80, 30, 0.1),
     inset 0 1px 2px rgba(255, 255, 255, 0.5);
@@ -33,18 +32,67 @@
   transform: translateY(-4px);
 }
 
-.about-text p {
-  margin-bottom: 1.4rem;
-  font-size: 1.05rem;
-  color: var(--text-secondary);
-  line-height: 1.8;
+/* Image column & wrapper */
+.about-image-column {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.about-image-wrapper {
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 3/4; /* Portrait aspect ratio */
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(120, 80, 30, 0.08); /* Soft shadow */
+  border: 1px solid var(--glass-border);
+  position: relative;
+}
+
+.about-profile-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Keep object-fit: cover */
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: block;
+}
+
+.about-image-wrapper:hover .about-profile-pic {
+  transform: scale(1.05); /* Subtle hover zoom animation */
+}
+
+/* Text & Typography */
+.about-text-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Consistent spacing */
+}
+
+.about-text-column p {
+  font-size: 1.05rem;
+  line-height: 1.85; /* Increased line height */
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Make headings stand out more */
+.about-text-column .skills-heading {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+/* Core Skills */
 .skills-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-top: 1rem;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 12px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .skills-list li {
@@ -53,6 +101,7 @@
   color: var(--text-secondary);
   padding-left: 1.4rem;
   font-weight: 500;
+  line-height: 1.5;
 }
 
 .skills-list li::before {
@@ -60,62 +109,55 @@
   position: absolute;
   left: 0;
   color: var(--accent);
-  line-height: 1.6;
+  font-weight: bold;
 }
 
-.about-image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Section title adjustments */
+.about-section .section-title h2 {
+  color: var(--text-primary);
 }
 
-.about-image {
-  width: 100%;
-  max-width: 300px;
-  aspect-ratio: 1;
-  border-radius: var(--radius-card);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: 
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E"),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 100%),
-    var(--glass-bg);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+.about-section .section-title .line {
+  background: linear-gradient(to right, var(--border-strong), transparent);
 }
 
-.about-image:hover {
-  box-shadow: 
-    0 16px 40px rgba(120, 80, 30, 0.1),
-    inset 0 1px 2px rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-4px);
-}
+/* Responsiveness */
+@media (max-width: 900px) {
+  .about-card {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px;
+  }
 
-/* Section-title colour fix */
-.about-section .section-title h2 { color: var(--text-primary); }
-.about-section .section-title .line { background: linear-gradient(to right, var(--border-strong), transparent); }
+  .about-image-column {
+    order: -1; /* Stack image above */
+  }
 
-@media (max-width: 800px) {
-  .about-section { padding: 5rem 6%; text-align: center; }
-  .about-content { grid-template-columns: 1fr; gap: 24px; }
-  .about-text { padding: 2rem; }
-  .about-text p { text-align: center; }
-  .section-title { justify-content: center; }
-  .section-title .line { display: none; }
-  .skills-list { justify-content: center; grid-template-columns: repeat(2, 1fr); }
+  .about-image-wrapper {
+    max-width: 320px;
+  }
 }
 
 @media (max-width: 480px) {
-  .about-section { padding: 3rem 1rem; }
-  .about-text { padding: 1.5rem; }
-  .about-text p { font-size: 0.95rem; text-align: center; }
-  .skills-list { grid-template-columns: 1fr; gap: 8px; }
-  .skills-list li { font-size: 0.9rem; }
+  .about-section {
+    padding: 4rem 16px;
+  }
+
+  .about-card {
+    padding: 30px 20px;
+    gap: 30px;
+  }
+
+  .about-image-wrapper {
+    max-width: 260px;
+  }
+
+  .about-text-column p {
+    font-size: 0.98rem;
+  }
+
+  .skills-list {
+    grid-template-columns: 1fr; /* Single column on tiny screens */
+    gap: 10px;
+  }
 }

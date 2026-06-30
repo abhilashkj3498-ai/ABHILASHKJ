@@ -9,14 +9,14 @@ const About = () => {
         <div className="line"></div>
       </div>
 
-      <div className="about-content">
-        <div className="about-image-container">
-          <div className="about-image glass" style={{ overflow: 'hidden', padding: 0 }}>
-            <img src={profilePic} alt="Abhilash" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      <div className="about-card glass">
+        <div className="about-image-column">
+          <div className="about-image-wrapper">
+            <img src={profilePic} alt="Abhilash" className="about-profile-pic" />
           </div>
         </div>
 
-        <div className="about-text glass">
+        <div className="about-text-column">
           <p>
             Hello! I'm Abhilash, a Creative and detail-oriented Videographer, Photographer, and Video Editor
             based in India. With 1.5 years of professional experience in digital media production and content
@@ -27,7 +27,7 @@ const About = () => {
             initial concept through to final delivery. My experience includes cinematic shooting, post-production, lighting composition,
             and creating optimized content tailored for Instagram, YouTube, and digital branding campaigns.
           </p>
-          <p>Here are my core areas of expertise:</p>
+          <p className="skills-heading">Here are my core areas of expertise:</p>
           <ul className="skills-list">
             <li>Cinematic Shooting</li>
             <li>Video Editing & Color Grading</li>
