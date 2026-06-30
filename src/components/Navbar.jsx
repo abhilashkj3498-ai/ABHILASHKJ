@@ -30,7 +30,6 @@ const Navbar = () => {
           <li><a href="#projects" onClick={(e) => scrollTo(e, 'projects')}>Work</a></li>
           <li><a href="#skills"   onClick={(e) => scrollTo(e, 'skills')}>Skills</a></li>
           <li><a href="#resume"   onClick={(e) => scrollTo(e, 'resume')}>Resume</a></li>
-          <li><a href="#contact"  onClick={(e) => scrollTo(e, 'contact')}>Contact</a></li>
         </ul>
 
         {/* Desktop CTA */}
@@ -56,7 +55,6 @@ const Navbar = () => {
           <li><a href="#projects" onClick={(e) => handleNav(e, 'projects')}>Work</a></li>
           <li><a href="#skills"   onClick={(e) => handleNav(e, 'skills')}>Skills</a></li>
           <li><a href="#resume"   onClick={(e) => handleNav(e, 'resume')}>Resume</a></li>
-          <li><a href="#contact"  onClick={(e) => handleNav(e, 'contact')}>Contact</a></li>
         </ul>
         <a
           href="#contact"
