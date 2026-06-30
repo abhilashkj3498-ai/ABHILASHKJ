@@ -286,3 +286,30 @@
   .resume-grid { grid-template-columns: 1fr; gap: 32px; }
   .timeline-item, .education-card, .strengths-card, .languages-card { padding: 1.5rem; }
 }
+
+/* Download Resume Button */
+.resume-download-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.resume-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.65rem 1.6rem;
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+.resume-download-btn .download-icon {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.5;
+  transition: transform 0.2s ease;
+}
+
+.resume-download-btn:hover .download-icon {
+  transform: translateY(2px);
+}
