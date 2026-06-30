@@ -1,8 +1,8 @@
 /**
- * Google Sheets CSV → YouTube embed video utility
+ * Google Sheets CSV → Google Drive embed video utility
  *
  * Fetches a published Google Sheets CSV, parses it, sorts by `order`,
- * and converts YouTube watch/short URLs into embeddable iframes.
+ * and converts Google Drive share URLs into embeddable iframes.
  *
  * Sheet structure: order,videoName,link
  */
@@ -41,52 +41,57 @@ function parseCSV(text) {
   });
 }
 
-// ── YouTube URL → embed URL ──────────────────────────────────────────────────
+// ── Google Drive URL → embed URL ──────────────────────────────────────────────
+// Supports:
+//   https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+//   https://drive.google.com/open?id=FILE_ID
+//   https://drive.google.com/file/d/FILE_ID/preview   (already embed)
 function toEmbedUrl(url) {
   if (!url) return null;
 
-  let videoId = null;
-
-  // youtube.com/watch?v=ID
-  const watchMatch = url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
-  if (watchMatch) { videoId = watchMatch[1]; }
-
-  // youtu.be/ID
-  if (!videoId) {
-    const shortMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
-    if (shortMatch) { videoId = shortMatch[1]; }
+  // drive.google.com/file/d/FILE_ID/...
+  const fileMatch = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (fileMatch) {
+    return `https://drive.google.com/file/d/${fileMatch[1]}/preview`;
   }
 
-  // youtube.com/shorts/ID
-  if (!videoId) {
-    const shortsMatch = url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/);
-    if (shortsMatch) { videoId = shortsMatch[1]; }
+  // drive.google.com/open?id=FILE_ID
+  const openMatch = url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
+  if (openMatch) {
+    return `https://drive.google.com/file/d/${openMatch[1]}/preview`;
   }
 
-  // youtube.com/embed/ID (already embed)
-  if (!videoId) {
-    const embedMatch = url.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/);
-    if (embedMatch) { videoId = embedMatch[1]; }
+  // drive.google.com/uc?id=FILE_ID  (direct download link)
+  const ucMatch = url.match(/drive\.google\.com\/uc\?.*id=([a-zA-Z0-9_-]+)/);
+  if (ucMatch) {
+    return `https://drive.google.com/file/d/${ucMatch[1]}/preview`;
   }
 
-  if (!videoId) return url;   // fallback: return as-is
-
-  return `https://www.youtube.com/embed/${videoId}`;
+  return url;   // fallback: return as-is
 }
 
-// ── YouTube thumbnail URL ────────────────────────────────────────────────────
-function toThumbnailUrl(url) {
+// ── Google Drive file ID extractor ───────────────────────────────────────────
+function extractDriveFileId(url) {
   if (!url) return null;
 
-  const embedMatch = url.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/);
-  const watchMatch = url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
-  const shortMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
-  const shortsMatch = url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/);
+  const fileMatch = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (fileMatch) return fileMatch[1];
 
-  const videoId = embedMatch?.[1] || watchMatch?.[1] || shortMatch?.[1] || shortsMatch?.[1];
-  if (!videoId) return null;
+  const openMatch = url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
+  if (openMatch) return openMatch[1];
 
-  return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  const ucMatch = url.match(/drive\.google\.com\/uc\?.*id=([a-zA-Z0-9_-]+)/);
+  if (ucMatch) return ucMatch[1];
+
+  return null;
+}
+
+// ── Google Drive thumbnail URL ────────────────────────────────────────────────
+// Uses Drive's built-in thumbnail endpoint (no API key required).
+function toThumbnailUrl(url) {
+  const fileId = extractDriveFileId(url);
+  if (!fileId) return null;
+  return `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
 }
 
 // ── Mapping of slug → Google Sheets CSV URL ──────────────────────────────────
@@ -106,7 +111,7 @@ export function isSheetCategory(slug) {
 
 /**
  * Fetch video data from a Google Sheet CSV for a given category slug.
- * Returns an array of objects: { id, url, embedUrl, thumbnail, filename, isVideo, isYouTube }
+ * Returns an array of objects: { id, url, embedUrl, thumbnail, filename, isVideo, isDrive }
  * sorted by the `order` column ascending.
  */
 export async function fetchSheetVideos(slug) {
@@ -117,14 +122,14 @@ export async function fetchSheetVideos(slug) {
   if (!response.ok) throw new Error(`Failed to fetch sheet: ${response.status}`);
 
   const text = await response.text();
-  const rows = parseCSV(text);
+  const rows = parseCSV(text).filter((row) => row.link && row.link.trim() !== '');
 
   // Sort by order ascending (parse as integer)
   rows.sort((a, b) => (parseInt(a.order, 10) || 0) - (parseInt(b.order, 10) || 0));
 
   return rows.map((row, index) => {
     const rawLink = row.link || '';
-    const embedUrl = toEmbedUrl(rawLink);
+    const embedUrl  = toEmbedUrl(rawLink);
     const thumbnail = toThumbnailUrl(rawLink);
 
     return {
@@ -133,11 +138,12 @@ export async function fetchSheetVideos(slug) {
       embedUrl,
       thumbnail,
       preview:    thumbnail,
-      filename:   row.videoname || row.videoName || `Video ${index + 1}`,
+      filename:   row.video || row.videoname || row.videoName || `Video ${index + 1}`,
       isVideo:    true,
-      isYouTube:  true,
+      isYouTube:  false,
+      isDrive:    true,
       isPDF:      false,
-      format:     'youtube',
+      format:     'drive',
     };
   });
 }

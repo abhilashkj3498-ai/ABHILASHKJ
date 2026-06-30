@@ -255,9 +255,14 @@
   text-align: center;
 }
 
-/* ── Premium YouTube card styles ───────────────────────────────────────────── */
+/* ── Premium Drive/YouTube card styles ──────────────────────────────────────── */
 .yt-card {
   cursor: pointer;
+}
+
+/* Fallback background when Drive thumbnail fails to load */
+.drive-thumb-fallback {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
 }
 
 /* Cinematic gradient overlay — bottom-to-top dark fade */
@@ -278,33 +283,6 @@
 
 .media-card:hover .yt-card-overlay {
   opacity: 0.85;
-}
-
-/* Premium play button — centered, animated */
-.yt-play-btn {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1);
-  z-index: 3;
-  pointer-events: none;
-  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
-  opacity: 0.9;
-  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.45));
-}
-
-.media-card:hover .yt-play-btn {
-  transform: translate(-50%, -50%) scale(1.15);
-  opacity: 1;
-  filter: drop-shadow(0 6px 28px rgba(201, 121, 62, 0.4));
-}
-
-.yt-play-bg {
-  transition: fill 0.3s ease;
-}
-
-.media-card:hover .yt-play-bg {
-  fill: var(--accent, #c9793e);
 }
 
 /* Video title — bottom bar */

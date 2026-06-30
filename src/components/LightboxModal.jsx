@@ -57,14 +57,14 @@ const LightboxModal = ({ media, currentIndex, onClose, onPrev, onNext }) => {
           </div>
         )}
 
-        {/* ── YouTube embed ── */}
-        {!isPDF && item.isYouTube && (
+        {/* ── Google Drive embed ── */}
+        {!isPDF && item.isDrive && (
           <div className="lightbox-youtube-wrapper">
             <iframe
-              src={`${item.embedUrl}?autoplay=1&rel=0&modestbranding=1&showinfo=0`}
+              src={`${item.embedUrl}?autoplay=1`}
               title={item.filename}
               className="lightbox-youtube"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+              allow="autoplay; fullscreen"
               allowFullScreen
               frameBorder="0"
             />
@@ -72,7 +72,7 @@ const LightboxModal = ({ media, currentIndex, onClose, onPrev, onNext }) => {
         )}
 
         {/* ── Video player ── */}
-        {!isPDF && isVideo && !item.isYouTube && (
+        {!isPDF && isVideo && !item.isDrive && (
           <video
             src={item.url}
             controls

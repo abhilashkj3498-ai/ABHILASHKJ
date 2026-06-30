@@ -139,7 +139,7 @@ const CategoryPage = () => {
               className={`media-card ${loaded[index] ? 'media-card--loaded' : ''}`}
               onClick={() => openLightbox(index)}
               onMouseEnter={
-                item.isVideo && !item.isYouTube
+                item.isVideo && !item.isDrive
                   ? (e) => {
                       const video = e.currentTarget.querySelector('video');
                       if (video) video.play().catch(() => {});
@@ -147,7 +147,7 @@ const CategoryPage = () => {
                   : undefined
               }
               onMouseLeave={
-                item.isVideo && !item.isYouTube
+                item.isVideo && !item.isDrive
                   ? (e) => {
                       const video = e.currentTarget.querySelector('video');
                       if (video) {
@@ -158,41 +158,28 @@ const CategoryPage = () => {
                   : undefined
               }
             >
-              {/* ── YouTube thumbnail card ── */}
-              {item.isYouTube && (
+              {/* ── Google Drive thumbnail card ── */}
+              {item.isDrive && (
                 <div className="media-video-wrapper yt-card" aria-label={`Play ${item.filename}`} role="button" tabIndex={0}>
-                  <img
-                    src={item.thumbnail}
-                    alt={item.filename}
+                  <iframe
+                    src={item.embedUrl}
+                    title={item.filename}
                     loading="lazy"
-                    decoding="async"
                     className="media-thumb"
+                    style={{ border: 'none', pointerEvents: 'none' }}
                     onLoad={() => markLoaded(index)}
-                    onError={(e) => {
-                      // Fallback to hqdefault if maxresdefault doesn't exist
-                      if (e.target.src.includes('maxresdefault')) {
-                        e.target.src = e.target.src.replace('maxresdefault', 'hqdefault');
-                      }
-                    }}
                   />
                   {/* Cinematic gradient overlay */}
                   <div className="yt-card-overlay" />
-                  {/* Premium play button */}
-                  <div className="yt-play-btn">
-                    <svg viewBox="0 0 68 48" width="68" height="48">
-                      <path className="yt-play-bg" d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="rgba(30,18,8,0.85)"/>
-                      <path d="M45 24L27 14v20" fill="#fff"/>
-                    </svg>
-                  </div>
                   {/* Video title */}
-                  <div className="yt-card-title">
+                  <div className="yt-card-title yt-card-title--always">
                     <span>{item.filename}</span>
                   </div>
                 </div>
               )}
 
               {/* ── Video card (Cloudinary) ── */}
-              {item.isVideo && !item.isYouTube && (
+              {item.isVideo && !item.isDrive && (
                 <div className="media-video-wrapper">
                   <video
                     src={item.url}
@@ -236,8 +223,8 @@ const CategoryPage = () => {
                 />
               )}
 
-              {/* Generic hover overlay — skip for YouTube (has custom overlay) */}
-              {!item.isYouTube && (
+              {/* Generic hover overlay — skip for Drive cards (has custom overlay) */}
+              {!item.isDrive && (
                 <div className="media-hover-overlay">
                   <span className="media-hover-icon">
                     {item.isVideo ? '▶' : item.isPDF ? '📄' : '⤢'}
