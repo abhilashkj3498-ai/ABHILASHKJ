@@ -296,7 +296,7 @@
 }
 
 .resume-download-btn {
-  display: inline-flex;
+  display: inline-flex !important;
   align-items: center;
   gap: 8px;
   padding: 0.65rem 1.6rem;
